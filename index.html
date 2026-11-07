@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anew - Daily affirmations for iPhone</title>
+<meta name="description" content="Words worth starting the day with. 270 affirmations for sixteen different moments, delivered quietly through the day.">
+<meta property="og:title" content="Anew">
+<meta property="og:description" content="Words worth starting the day with. 270 of them, for sixteen different moments.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getanew.app/">
+<meta property="og:image" content="https://getanew.app/icon.png">
+<link rel="canonical" href="https://getanew.app/">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400&family=Lora&family=DM+Sans:opsz,wght@9..40,300&family=Cormorant+Garamond&family=Playfair+Display&family=Caveat&display=swap" rel="stylesheet">
+<style>
+/* Values come from docs/DESIGN.md. Change them there first. */
+:root {
+  --bg: #F4F5F7;
+  --surface: #FFFFFF;
+  --text: #1E2328;
+  --text-2: #6E767E;
+  --action: #2B333A;
+  --action-text: #F4F5F7;
+  --divider: #E4E7EA;
+  --serif: "Newsreader", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --margin: 24px;
+  --max: 1080px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181B;
+    --surface: #1E2328;
+    --text: #EDEFF1;
+    --text-2: #8A9199;
+    --action: #EDEFF1;
+    --action-text: #15181B;
+    --divider: #2A3137;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/24px var(--sans);
+}
+a { color: inherit; }
+img { display: block; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--margin); }
+
+.caption {
+  font-size: 12px; line-height: 16px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-2);
+  margin: 0 0 16px;
+}
+h2 {
+  font: 300 clamp(30px, 4vw, 40px)/1.2 var(--serif);
+  margin: 0 0 16px;
+  max-width: 20ch;
+}
+.lede { color: var(--text-2); max-width: 52ch; margin: 0; }
+
+.button {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 48px; padding: 14px 22px;
+  background: var(--action); color: var(--action-text);
+  border-radius: 12px;
+  font: 600 16px/20px var(--sans);
+  text-decoration: none;
+}
+.button svg { width: 20px; height: 20px; flex: none; }
+.button:focus-visible, a:focus-visible { outline: 2px solid #7D93A3; outline-offset: 3px; }
+.fine { font-size: 13px; line-height: 18px; color: var(--text-2); margin: 12px 0 0; }
+
+/* Header */
+header .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 600; font-size: 18px; }
+.brand img { width: 36px; height: 36px; border-radius: 9px; }
+header .button { min-height: 44px; padding: 10px 16px; font-size: 15px; }
+
+/* Hero */
+.hero { padding: 72px 0 96px; }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+.hero h1 {
+  font: 300 clamp(40px, 6vw, 64px)/1.1 var(--serif);
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+.hero .lede { font-size: 18px; line-height: 28px; margin-bottom: 32px; }
+
+/* Phone */
+.phone {
+  justify-self: center;
+  width: 300px; aspect-ratio: 9 / 19.5;
+  border: 10px solid var(--text);
+  border-radius: 48px;
+  background: #DDE3E8; color: #1E2328;
+  position: relative; overflow: hidden;
+}
+.phone .dots { position: absolute; top: 28px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+.phone .dots i { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #C4CDD5; }
+.phone .dots i.on { background: #1E2328; border-color: #1E2328; }
+.phone .stage { position: absolute; inset: 0; }
+.phone blockquote {
+  position: absolute; inset: 0; margin: 0;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 0 28px;
+  font: 300 26px/36px var(--serif);
+  opacity: 0;
+  animation: cycle 20s infinite;
+}
+.phone blockquote:nth-child(2) { animation-delay: 5s; }
+.phone blockquote:nth-child(3) { animation-delay: 10s; }
+.phone blockquote:nth-child(4) { animation-delay: 15s; }
+@keyframes cycle {
+  0% { opacity: 0; }
+  2%, 23% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone blockquote { animation: none; }
+  .phone blockquote:first-child { opacity: 1; }
+}
+.phone .bar {
+  position: absolute; left: 24px; right: 24px; bottom: 32px;
+  display: flex; align-items: center; justify-content: space-between; color: #5F6971;
+}
+.phone .bar svg { width: 22px; height: 22px; }
+.phone .bar .mid { display: flex; gap: 16px; }
+
+section { padding: 96px 0; border-top: 1px solid var(--divider); }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; padding: 0; list-style: none; }
+.steps li { border-top: 1px solid var(--divider); padding-top: 20px; }
+.steps .n { font: 300 32px/1 var(--serif); color: var(--text-2); display: block; margin-bottom: 16px; }
+.steps h3 { font-size: 18px; line-height: 24px; font-weight: 600; margin: 0 0 8px; }
+.steps p { margin: 0; color: var(--text-2); }
+
+/* Moments */
+.moments { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+.moments h3 { margin: 0 0 16px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.chips li {
+  border: 1px solid var(--divider); border-radius: 12px;
+  padding: 10px 14px; font-size: 15px; line-height: 20px;
+}
+.sample {
+  margin: 56px 0 0; padding: 40px var(--margin);
+  border: 1px solid var(--divider); border-radius: 16px;
+  text-align: center;
+}
+.sample p { font: 300 clamp(24px, 3vw, 32px)/1.35 var(--serif); margin: 0 0 12px; }
+.sample span { font-size: 13px; color: var(--text-2); }
+
+/* Themes */
+.themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+.theme {
+  border-radius: 16px; padding: 28px 24px;
+  min-height: 220px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.theme p { margin: 0; font-size: 26px; line-height: 1.35; }
+.theme span { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.t-plain   { background: #F4F5F7; color: #1E2328; border: 1px solid #D8DEE3; }
+.t-mist    { background: #DDE3E8; color: #1E2328; }
+.t-sage    { background: #D6DDD8; color: #1E2328; }
+.t-harbor  { background: #94A2AB; color: #1E2328; }
+.t-slate   { background: #3A444D; color: #EDEFF1; }
+.t-ink     { background: #15181B; color: #EDEFF1; border: 1px solid #2A3137; }
+.t-plain span  { color: #6E767E; }
+.t-mist span   { color: #5F6971; }
+.t-sage span   { color: #5D6862; }
+.t-harbor span { color: #2F3941; }
+.t-slate span  { color: #A8B3BB; }
+.t-ink span    { color: #8A9199; }
+.f-newsreader { font-family: "Newsreader", serif; font-weight: 300; }
+.f-lora       { font-family: "Lora", serif; }
+.f-dmsans     { font-family: "DM Sans", sans-serif; font-weight: 300; }
+.f-cormorant  { font-family: "Cormorant Garamond", serif; font-size: 30px !important; }
+.f-playfair   { font-family: "Playfair Display", serif; }
+.f-caveat     { font-family: "Caveat", cursive; font-size: 32px !important; }
+
+/* Features */
+.features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+.feature { border: 1px solid var(--divider); border-radius: 16px; padding: 24px; }
+.feature svg { width: 28px; height: 28px; color: var(--text-2); margin-bottom: 16px; }
+.feature h3 { font-size: 17px; line-height: 24px; font-weight: 600; margin: 0 0 6px; }
+.feature p { margin: 0; color: var(--text-2); }
+
+/* Closing */
+.closing { text-align: center; }
+.closing h2, .closing .lede { margin-left: auto; margin-right: auto; }
+.closing .lede { margin-bottom: 32px; }
+
+footer { border-top: 1px solid var(--divider); padding: 32px 0 48px; font-size: 13px; color: var(--text-2); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 16px 24px; justify-content: space-between; }
+footer nav { display: flex; gap: 24px; }
+footer a { text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 860px) {
+  .hero { padding: 40px 0 72px; }
+  .hero .wrap { grid-template-columns: 1fr; gap: 56px; }
+  .phone { width: 260px; }
+  .phone blockquote { font-size: 22px; line-height: 31px; }
+  section { padding: 72px 0; }
+  .steps, .moments, .features { grid-template-columns: 1fr; }
+  .steps { gap: 24px; }
+  .themes { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px) {
+  .themes { grid-template-columns: 1fr; }
+  .theme { min-height: 180px; }
+  header .button span.long { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Replace APP_STORE_URL below (three places) with the real App Store link once the app is live. -->
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Anew home">
+      <img src="icon.png" alt="" width="36" height="36">
+      Anew
+    </a>
+    <a class="button" href="APP_STORE_URL">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.62c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.16c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+      <span><span class="long">Download on the </span>App Store</span>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="caption">Daily affirmations for iPhone</p>
+        <h1>Words worth starting the day with.</h1>
+        <p class="lede">270 short, plain-spoken affirmations for sixteen different moments, from a Sunday evening to the night before a hard conversation. Delivered quietly through the day, one at a time.</p>
+        <a class="button" href="APP_STORE_URL">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.62c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.16c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+          Download on the App Store
+        </a>
+        <p class="fine">Free to download. Start with a free trial.</p>
+      </div>
+
+      <div class="phone" role="img" aria-label="Anew on an iPhone, showing one affirmation at a time on a soft blue-grey background">
+        <div class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+        <div class="stage" aria-hidden="true">
+          <blockquote>I can take this one thing at a time.</blockquote>
+          <blockquote>The week has not started yet.</blockquote>
+          <blockquote>I can choose without being certain.</blockquote>
+          <blockquote>Everyone here was new once.</blockquote>
+        </div>
+        <div class="bar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          <div class="mid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-8-4.6-8-10.4A4.4 4.4 0 0 1 12 7.6a4.4 4.4 0 0 1 8 2.5c0 5.8-8 10.4-8 10.4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section aria-labelledby="how">
+    <div class="wrap">
+      <p class="caption">How it works</p>
+      <h2 id="how">Set it once. Then let it find you.</h2>
+      <ol class="steps">
+        <li>
+          <span class="n">1</span>
+          <h3>Pick your moments</h3>
+          <p>Choose the categories that fit your life right now. Change them whenever it changes.</p>
+        </li>
+        <li>
+          <span class="n">2</span>
+          <h3>Choose when</h3>
+          <p>Set how often and a window in your day. Anew sends affirmations as quiet notifications inside it.</p>
+        </li>
+        <li>
+          <span class="n">3</span>
+          <h3>Read, then swipe</h3>
+          <p>Open the app to one affirmation, centred and alone on the screen. Swipe for the next, or back to the last.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="moments">
+    <div class="wrap">
+      <p class="caption">Sixteen moments</p>
+      <h2 id="moments">For how you feel, and for where you are.</h2>
+      <p class="lede">Six everyday categories for a general mood, and ten for a specific moment you are in right now. Every line is first person, present tense, and under twelve words.</p>
+      <div class="moments">
+        <div>
+          <h3 class="caption">Everyday</h3>
+          <ul class="chips">
+            <li>Calm</li><li>Confidence</li><li>Self-worth</li><li>Resilience</li><li>Gratitude</li><li>Focus</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="caption">Situational</h3>
+          <ul class="chips">
+            <li>Before sleep</li><li>Sunday evening</li><li>Before a hard conversation</li><li>After a bad day</li><li>Missing someone</li><li>While waiting for news</li><li>Facing a big decision</li><li>A first day somewhere new</li><li>After a breakup</li><li>As a parent</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="sample">
+        <p>My voice may shake and the words still count.</p>
+        <span>Before a hard conversation</span>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="yours">
+    <div class="wrap">
+      <p class="caption">Make it yours</p>
+      <h2 id="yours">Six backgrounds. Six typefaces. Any pairing.</h2>
+      <p class="lede">The interface stays out of the way. The words are the only thing asking for attention, set the way you like to read them.</p>
+      <div class="themes">
+        <div class="theme t-plain"><p class="f-newsreader">I can put this down for now.</p><span>Plain, Newsreader</span></div>
+        <div class="theme t-mist"><p class="f-lora">I trust what experience has taught me.</p><span>Mist, Lora</span></div>
+        <div class="theme t-sage"><p class="f-cormorant">I notice the warmth of my first sip.</p><span>Sage, Cormorant</span></div>
+        <div class="theme t-harbor"><p class="f-dmsans">I can return to what is in front of me.</p><span>Harbor, DM Sans</span></div>
+        <div class="theme t-slate"><p class="f-playfair">Being here is most of it.</p><span>Slate, Playfair</span></div>
+        <div class="theme t-ink"><p class="f-caveat">The day is over, and I can let it be over.</p><span>Ink, Caveat</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="more">
+    <div class="wrap">
+      <p class="caption">Also inside</p>
+      <h2 id="more">Small things that keep you coming back.</h2>
+      <div class="features">
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <h3>Favorites</h3>
+          <p>Keep the lines that land, and come back to them when you need them.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4M2 10h4M2 14h4M2 18h4"/><path d="M21.4 5.6a2.1 2.1 0 1 0-3-3l-5 5-1 4 4-1z"/></svg>
+          <h3>Your own words</h3>
+          <p>Write and save affirmations of your own, alongside the ones that come with the app.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="20" cy="12" r="2"/></svg>
+          <h3>A quiet streak</h3>
+          <p>Seven dots for your week. No flames, no pressure, nothing about losing.</p>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          <h3>Private by design</h3>
+          <p>No account, no sign-up. Everything you choose and write stays on your phone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" aria-labelledby="start">
+    <div class="wrap">
+      <h2 id="start">Start tomorrow with one good sentence.</h2>
+      <p class="lede">One subscription unlocks everything: every category, theme and typeface. No ads. Try it free first.</p>
+      <a class="button" href="APP_STORE_URL">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.62c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.18-1.73-1.35-.14-2.64.8-3.33.8-.69 0-1.74-.78-2.87-.76-1.47.02-2.83.86-3.59 2.18-1.53 2.66-.39 6.6 1.1 8.75.73 1.05 1.6 2.24 2.73 2.2 1.1-.05 1.51-.71 2.84-.71 1.32 0 1.7.71 2.86.69 1.18-.02 1.93-1.07 2.65-2.13.84-1.22 1.18-2.4 1.2-2.46-.03-.01-2.3-.88-2.32-3.5zM14.2 6.16c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.22z"/></svg>
+        Download on the App Store
+      </a>
+      <p class="fine">For iPhone.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Anew</span>
+    <nav aria-label="Legal">
+      <a href="https://aparetti3.github.io/anew-legal/terms">Terms</a>
+      <a href="https://aparetti3.github.io/anew-legal/privacy">Privacy</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
